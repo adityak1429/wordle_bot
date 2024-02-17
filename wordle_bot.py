@@ -10,28 +10,29 @@ universe=[df[i][0] for i in range(len(df))]
 #
 # WALTZ VIBEX CHUNK FJORD GYMPS
 # input processing
-words=["WALTZ" ,"VIBEX", "CHUNK", "FJORD", "GYMPS"]
-inputs = list(map(str ,input("WALTZ VIBEX CHUNK FJORD GYMPS gives (each word represent as b,g,y; EX: bbgyb, ..): ").strip().split()))[:5]
-assert(sum([len(inputs[i])==5 for i in range(5)])==5)
+words=["STARE","CLOUD","PINKY"]
+num=len(words)
+inputs = list(map(str ,input("WALTZ VIBEX CHUNK FJORD GYMPS gives (each word represent as b,g,y; EX: bbgyb, ..): ").strip().split()))[:num]
+assert(sum([len(inputs[i])==5 for i in range(num)])==num)
 
+possible=set({'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'})
 
-
-
-possible=set({})
-for i in range(5):
+for i in range(num):
     for j in range(5):
-        if inputs[i][j]=='y' or inputs[i][j]=='g':
-            possible.add(words[i][j])
+        if inputs[i][j]=='b':
+            possible.remove(words[i][j])
 
 lists=[list(possible),list(possible),list(possible),list(possible),list(possible)]
 
+
 for j in range(5):
-    for i in range(5):
+    for i in range(num):
         if inputs[i][j]=='g':
             lists[j]=[words[i][j]]
             break
         elif inputs[i][j]=='y':
             lists[j].pop(lists[j].index(words[i][j]))
+
 
 possible_words=[]
 for q in lists[0]:
@@ -42,5 +43,6 @@ for q in lists[0]:
                     s=q+w+e+r+t
                     if s.lower() in universe:
                         possible_words.append(s)
+
 print(possible_words)
 #  bbbgb bgbby bybbb bbbbb bbbby

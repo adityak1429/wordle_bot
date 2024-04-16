@@ -1,5 +1,5 @@
 #!/bin/bash
-X=$(ls -tp /home/aditya1429/Pictures/Screenshots | grep -v /$ | head -1)
+X=$(ls -tp ~/Pictures/Screenshots | grep -v /$ | head -1)
 echo ${X}
 cp "/home/aditya1429/Pictures/Screenshots/${X}" .
 python3 vision.py | python wordle_bot.py 1

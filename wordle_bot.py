@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import sys
 def Cloning(li1):
     li_copy = []
     li_copy.extend(li1)
@@ -15,14 +16,26 @@ universe=([df[i][0] for i in range(len(df))])
 #
 # WALTZ VIBEX CHUNK FJORD GYMPS
 # input processing
-words=[]
-inputs=[]
-words=["STARE","CLOUD","PINKY"]
-inputs.append(str(input()))#"what is its code:"
-inputs.append(str(input()))#"what is its code:"
-inputs.append(str(input()))#"what is its code:"
+vis=False
+if len(sys.argv)==1:
+    words=[]
+    inputs=[]
+    words=["STARE","CLOUD","PINKY"]
+    print(words)
+    inputs.append(str(input()))#"what is its code:"
+    inputs.append(str(input()))#"what is its code:"
+    inputs.append(str(input()))#"what is its code:"
 
-#words=["WALTZ" ,"VIBEX", "CHUNK", "FJORD", "GYMPS"]
+    #words=["WALTZ" ,"VIBEX", "CHUNK", "FJORD", "GYMPS"]
+else:
+    vis=True
+    print("taking input from vision...")
+    n=int(input())
+    words=list(map(str,input().strip().split()))
+    inputs=list(map(str,input().strip().split()))
+    print(words)
+    print(inputs)
+    print("please cross-check inputs")
 start=0
 yellows=set({})
 while True:
@@ -31,10 +44,7 @@ while True:
     print("RUNNING")
     possible=set({'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'})
 
-    for i in range(num):
-        for j in range(5):
-            if inputs[i][j]=='b':
-                possible.discard(words[i][j])
+
     
     lists=[set(possible),set(possible),set(possible),set(possible),set(possible)]
 
@@ -45,6 +55,12 @@ while True:
             elif inputs[i][j]=='y':
                 lists[j].discard(words[i][j])
                 yellows.add(words[i][j])
+
+    for i in range(num):
+        for j in range(5):
+            if inputs[i][j]=='b' and words[i][j] not in yellows:
+                for w in lists:
+                    w.discard(words[i][j])
 
     possible_words=[]
     for q in lists[0]:
@@ -62,14 +78,17 @@ while True:
                                 possible_words.append(s)
     print(possible_words)
     print("DONE")
-    universe=[]
-    for i in possible_words:
-        universe.append(i.lower())
-    if len(possible_words)>1:
-        if 1:#1:(int(input("do you wish to continue [1/0]")))!=0:#
-            start=num
-            words.append(str(input()).upper())#"which word u want to add:"
-            inputs.append(str(input()).lower())#"what is its code:"
+    if not vis:
+        universe=[]
+        for i in possible_words:
+            universe.append(i.lower())
+        if len(possible_words)>1:
+            if 1:#1:(int(input("do you wish to continue [1/0]")))!=0:#
+                start=num
+                words.append(str(input()).upper())#"which word u want to add:"
+                inputs.append(str(input()).lower())#"what is its code:"
+            else:
+                break
         else:
             break
     else:

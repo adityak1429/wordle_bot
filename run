@@ -1,5 +1,7 @@
 #!/bin/bash
 X=$(ls -tp ~/Pictures/Screenshots | grep -v /$ | head -1)
+H=$(echo ~)
 echo ${X}
-cp "~/Pictures/Screenshots/${X}" .
+cp "${H}/Pictures/Screenshots/${X}" .
 python3 vision.py | python wordle_bot.py 1
+rm *.png
